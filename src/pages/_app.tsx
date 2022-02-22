@@ -1,23 +1,16 @@
-import { AppProps } from 'next/app'
-import { theme } from '../theme'
-import { ChakraProvider } from '@chakra-ui/react'
+import { QueryClientProvider, QueryClient } from "react-query";
+import { ChakraProvider } from "@chakra-ui/react";
 
-import '../theme/external/formik.css';
-import '../theme/external/swiperSlider.css';
+import { theme } from "../styles/theme";
 
-import Head from 'next/head'
+const queryClient = new QueryClient();
 
-function MyApp({ Component, pageProps }: AppProps) {
-
+export default function MyApp({ Component, pageProps }) {
   return (
-    <ChakraProvider theme={theme}>
-      <Head>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta charSet="UTF-8" />
-      </Head>
-      <Component {...pageProps} />
-    </ChakraProvider>
-  )
+    <QueryClientProvider client={queryClient}>
+      <ChakraProvider theme={theme}>
+        <Component {...pageProps} />
+      </ChakraProvider>
+    </QueryClientProvider>
+  );
 }
-
-export default MyApp;
